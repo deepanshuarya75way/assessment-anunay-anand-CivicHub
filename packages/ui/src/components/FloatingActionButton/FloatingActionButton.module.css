@@ -1,0 +1,55 @@
+.fab {
+  position: fixed;
+  z-index: var(--ch-z-sticky);
+  border-radius: var(--ch-radius-full);
+  box-shadow: var(--ch-shadow-2xl);
+  padding: 0;
+}
+
+.fab:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+.fab:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.size-md {
+  width: 48px;
+  height: 48px;
+}
+
+.size-lg {
+  width: 56px;
+  height: 56px;
+}
+
+/* Ensure SVG icons inside are properly sized */
+.fab > svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.position-bottom-right {
+  bottom: var(--ch-space-8);
+  right: var(--ch-space-8);
+}
+
+.position-bottom-left {
+  bottom: var(--ch-space-8);
+  left: var(--ch-space-8);
+}
+
+.position-bottom-center {
+  bottom: var(--ch-space-8);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.position-bottom-center:hover {
+  transform: translateX(-50%) translateY(-4px) scale(1.02);
+}
+
+.position-bottom-center:active {
+  transform: translateX(-50%) translateY(0) scale(0.98);
+}

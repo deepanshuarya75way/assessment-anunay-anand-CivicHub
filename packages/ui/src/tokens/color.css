@@ -1,0 +1,176 @@
+/* Semantic Colors, Themes, and High Contrast Support */
+:root {
+  /* Hues for programmatic use (e.g. gradients, hovers) */
+  --ch-primary-hue: 221; /* Blue */
+  --ch-secondary-hue: 160; /* Emerald */
+  --ch-accent-hue: 45; /* Gold */
+
+  /* Neutral Palette (Slate) */
+  --ch-slate-50: #F8FAFC;
+  --ch-slate-100: #F1F5F9;
+  --ch-slate-200: #E2E8F0;
+  --ch-slate-300: #CBD5E1;
+  --ch-slate-400: #94A3B8;
+  --ch-slate-500: #64748B;
+  --ch-slate-600: #475569;
+  --ch-slate-700: #334155;
+  --ch-slate-800: #1E293B;
+  --ch-slate-900: #0F172A;
+  --ch-slate-950: #020617;
+
+  /* Base Backgrounds (Default to Light Mode) */
+  --ch-bg-dark: var(--ch-slate-950);
+  --ch-bg-light: var(--ch-slate-50);
+  --ch-bg-base: var(--ch-slate-50);
+  --ch-bg-surface: #FFFFFF;
+  --ch-bg-surface-elevated: var(--ch-slate-100);
+  
+  /* Primary Hues */
+  --ch-primary-base: #2563EB; /* Blue */
+  --ch-primary-glow: rgba(37, 99, 235, 0.4);
+  
+  /* Secondary Hues */
+  --ch-secondary-base: #10B981; /* Emerald */
+  
+  /* Accents */
+  --ch-accent-gold: #F59E0B; /* Gold */
+
+  /* Text Colors */
+  --ch-text-primary: var(--ch-slate-950);
+  --ch-text-secondary: var(--ch-slate-600);
+  --ch-text-tertiary: var(--ch-slate-400);
+
+  /* Semantic Colors */
+  --ch-success-base: #22C55E;
+  --ch-warning-base: #F59E0B;
+  --ch-error-base: #EF4444;
+  --ch-info-base: #3B82F6;
+  
+  /* Borders */
+  --ch-border-base: var(--ch-slate-200);
+
+  /* Focus Rings */
+  --ch-focus-ring: rgba(37, 99, 235, 0.5);
+
+  /* Glass System - Light Mode */
+  --ch-glass-1-bg: rgba(255, 255, 255, 0.7);
+  --ch-glass-1-border: rgba(255, 255, 255, 0.5);
+  --ch-glass-1-blur: blur(8px);
+
+  --ch-glass-2-bg: rgba(255, 255, 255, 0.5);
+  --ch-glass-2-border: rgba(255, 255, 255, 0.4);
+  --ch-glass-2-blur: blur(12px);
+
+  --ch-glass-3-bg: rgba(255, 255, 255, 0.3);
+  --ch-glass-3-border: rgba(255, 255, 255, 0.2);
+  --ch-glass-3-blur: blur(16px);
+
+  --ch-glass-4-bg: rgba(255, 255, 255, 0.1);
+  --ch-glass-4-border: rgba(255, 255, 255, 0.1);
+  --ch-glass-4-blur: blur(24px);
+
+  /* Spacing Scale */
+  --ch-space-1: 0.25rem;  /* 4px */
+  --ch-space-2: 0.5rem;   /* 8px */
+  --ch-space-3: 0.75rem;  /* 12px */
+  --ch-space-4: 1rem;     /* 16px */
+  --ch-space-5: 1.25rem;  /* 20px */
+  --ch-space-6: 1.5rem;   /* 24px */
+  --ch-space-8: 2rem;     /* 32px */
+  --ch-space-10: 2.5rem;  /* 40px */
+  --ch-space-12: 3rem;    /* 48px */
+  --ch-space-16: 4rem;    /* 64px */
+  --ch-space-20: 5rem;    /* 80px */
+  --ch-space-24: 6rem;    /* 96px */
+  --ch-space-32: 8rem;    /* 128px */
+
+  /* Border Radius */
+  --ch-radius-sm: 0.375rem;
+  --ch-radius-md: 0.5rem;
+  --ch-radius-lg: 0.75rem;
+  --ch-radius-xl: 1rem;
+  --ch-radius-2xl: 1.5rem;
+  --ch-radius-full: 9999px;
+
+  /* Shadows */
+  --ch-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --ch-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --ch-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+  --ch-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+  --ch-shadow-glow: 0 0 20px -5px var(--ch-primary-glow);
+  --ch-shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+
+  /* Transitions */
+  --ch-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --ch-transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --ch-transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  --ch-transition-spring: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+[data-theme='dark'] {
+  --ch-bg-base: #030305;
+  --ch-bg-surface: #0a0a0f;
+  --ch-bg-card: rgba(255, 255, 255, 0.03);
+
+  --ch-text-primary: #ffffff;
+  --ch-text-secondary: #a1a1aa;
+  --ch-text-tertiary: #71717a;
+
+  --ch-border-base: rgba(255, 255, 255, 0.08);
+  --ch-border-hover: rgba(255, 255, 255, 0.15);
+  
+  --ch-primary-base: #3b82f6;
+  --ch-primary-hover: #60a5fa;
+  --ch-primary-muted: rgba(59, 130, 246, 0.15);
+
+  --ch-secondary-base: #8b5cf6;
+  --ch-secondary-hover: #a78bfa;
+
+  --ch-accent-teal: #14b8a6;
+  --ch-accent-gold: #fbbf24;
+  --ch-accent-rose: #f43f5e;
+
+  --ch-success-base: #10b981;
+  --ch-error-base: #ef4444;
+  --ch-warning-base: #f59e0b;
+  --ch-info-base: #3b82f6;
+
+  /* Glass specifics for dark mode */
+  --ch-glass-1-bg: rgba(255, 255, 255, 0.03);
+  --ch-glass-1-border: rgba(255, 255, 255, 0.05);
+  --ch-glass-2-bg: rgba(255, 255, 255, 0.05);
+  --ch-glass-2-border: rgba(255, 255, 255, 0.08);
+  --ch-glass-3-bg: rgba(255, 255, 255, 0.08);
+  --ch-glass-3-border: rgba(255, 255, 255, 0.12);
+  --ch-glass-4-bg: rgba(255, 255, 255, 0.12);
+  --ch-glass-4-border: rgba(255, 255, 255, 0.15);
+
+  --ch-bg-surface-elevated: #111116;
+
+  --ch-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --ch-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --ch-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  --ch-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  --ch-shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+[data-theme='high-contrast'] {
+  --ch-bg-base: #000000;
+  --ch-bg-surface: #000000;
+  --ch-bg-surface-elevated: #111111;
+  --ch-text-primary: #ffffff;
+  --ch-text-secondary: #cccccc;
+  --ch-primary-base: #ffff00;
+  --ch-focus-ring: #ffff00;
+  --ch-border-base: #ffffff;
+
+  --ch-glass-1-bg: #000000;
+  --ch-glass-2-bg: #000000;
+  --ch-glass-3-bg: #000000;
+  --ch-glass-4-bg: #000000;
+  
+  --ch-glass-1-border: #ffffff;
+  --ch-glass-2-border: #ffffff;
+  --ch-glass-3-border: #ffffff;
+  --ch-glass-4-border: #ffffff;
+}

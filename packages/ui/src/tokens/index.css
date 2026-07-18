@@ -1,0 +1,24 @@
+/* Import all design tokens */
+@import './color.css';
+@import './spacing.css';
+@import './radius.css';
+@import './glass.css';
+@import './typography.css';
+@import './shadow.css';
+@import './breakpoints.css';
+@import './z-index.css';
+
+/* Base Styles */
+body {
+  font-family: var(--ch-font-sans);
+  background-color: var(--ch-bg-dark);
+  color: var(--ch-text-primary);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--ch-font-heading);
+  margin: 0;
+}

@@ -1,0 +1,111 @@
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px; /* Touch target minimum */
+  width: 100%;
+  border-radius: var(--ch-radius-md);
+  border: 1px solid var(--ch-glass-2-border);
+  background: var(--ch-glass-1-bg);
+  backdrop-filter: var(--ch-glass-1-blur);
+  -webkit-backdrop-filter: var(--ch-glass-1-blur);
+  padding: 0 var(--ch-space-4);
+  font-family: var(--ch-font-sans);
+  font-size: var(--ch-text-base);
+  color: var(--ch-text-primary);
+  transition: all var(--ch-transition-fast);
+  cursor: pointer;
+}
+
+.trigger:focus {
+  outline: none;
+  border-color: var(--ch-primary-base);
+  box-shadow: 0 0 0 2px var(--ch-focus-ring);
+  background: var(--ch-glass-2-bg);
+}
+
+.trigger[data-placeholder] {
+  color: var(--ch-text-tertiary);
+}
+
+.trigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+  opacity: 0.8;
+}
+
+.content {
+  overflow: hidden;
+  background: var(--ch-glass-3-bg);
+  backdrop-filter: var(--ch-glass-3-blur);
+  -webkit-backdrop-filter: var(--ch-glass-3-blur);
+  border: 1px solid var(--ch-glass-3-border);
+  border-radius: var(--ch-radius-md);
+  box-shadow: var(--ch-glass-3-shadow);
+  z-index: var(--ch-z-dropdown);
+}
+
+.viewport {
+  padding: var(--ch-space-2);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: var(--ch-space-2) var(--ch-space-8) var(--ch-space-2) var(--ch-space-6);
+  position: relative;
+  user-select: none;
+  border-radius: var(--ch-radius-sm);
+  font-family: var(--ch-font-sans);
+  font-size: var(--ch-text-sm);
+  color: var(--ch-text-primary);
+  cursor: pointer;
+  transition: background var(--ch-transition-fast);
+}
+
+.item[data-disabled] {
+  color: var(--ch-text-tertiary);
+  pointer-events: none;
+}
+
+.item[data-highlighted] {
+  outline: none;
+  background: var(--ch-primary-base);
+  color: #fff;
+}
+
+.itemIndicatorWrapper {
+  position: absolute;
+  left: var(--ch-space-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.label {
+  padding: var(--ch-space-2) var(--ch-space-6);
+  font-size: var(--ch-text-xs);
+  font-weight: var(--ch-font-semibold);
+  color: var(--ch-text-tertiary);
+}
+
+.separator {
+  height: 1px;
+  background: var(--ch-glass-2-border);
+  margin: var(--ch-space-1) 0;
+}
+
+.scrollButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
+  background: transparent;
+  color: var(--ch-text-primary);
+  cursor: default;
+}

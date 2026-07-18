@@ -1,0 +1,14 @@
+.divider {
+  flex-shrink: 0;
+  background-color: var(--ch-glass-2-border);
+}
+
+.horizontal {
+  height: 1px;
+  width: 100%;
+}
+
+.vertical {
+  height: 100%;
+  width: 1px;
+}

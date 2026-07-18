@@ -1,0 +1,58 @@
+/* Glass Physics Levels & Tokens */
+:root {
+  /* 
+   * Glass Level 1 (Deep)
+   * Use for Sidebars, Background Panels 
+   * High opacity, low blur, subtle border
+   */
+  --ch-glass-1-bg: rgba(255, 255, 255, 0.08);
+  --ch-glass-1-border: rgba(255, 255, 255, 0.05);
+  --ch-glass-1-blur: blur(8px);
+  --ch-glass-1-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05);
+
+  /* 
+   * Glass Level 2 (Mid)
+   * Use for Cards, Content Sections 
+   * Medium opacity, medium blur
+   */
+  --ch-glass-2-bg: rgba(255, 255, 255, 0.05);
+  --ch-glass-2-border: rgba(255, 255, 255, 0.1);
+  --ch-glass-2-blur: blur(12px);
+  --ch-glass-2-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+
+  /* 
+   * Glass Level 3 (High)
+   * Use for Dialogs, Popovers, Dropdowns
+   * Low opacity, high blur, distinct border, strong shadow
+   */
+  --ch-glass-3-bg: rgba(255, 255, 255, 0.02);
+  --ch-glass-3-border: rgba(255, 255, 255, 0.15);
+  --ch-glass-3-blur: blur(24px); /* Performance limit: never exceed 24px */
+  --ch-glass-3-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='light'] {
+  --ch-glass-1-bg: rgba(0, 0, 0, 0.03);
+  --ch-glass-1-border: rgba(0, 0, 0, 0.05);
+  
+  --ch-glass-2-bg: rgba(0, 0, 0, 0.02);
+  --ch-glass-2-border: rgba(0, 0, 0, 0.08);
+  
+  --ch-glass-3-bg: rgba(0, 0, 0, 0.01);
+  --ch-glass-3-border: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='high-contrast'] {
+  /* Remove blur for accessibility, increase borders and opacity */
+  --ch-glass-1-bg: rgba(0, 0, 0, 0.9);
+  --ch-glass-1-border: #ffffff;
+  --ch-glass-1-blur: none;
+  
+  --ch-glass-2-bg: rgba(0, 0, 0, 0.95);
+  --ch-glass-2-border: #ffffff;
+  --ch-glass-2-blur: none;
+  
+  --ch-glass-3-bg: #000000;
+  --ch-glass-3-border: #ffffff;
+  --ch-glass-3-blur: none;
+}

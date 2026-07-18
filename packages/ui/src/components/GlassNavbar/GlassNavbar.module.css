@@ -1,0 +1,39 @@
+.navbar {
+  position: relative;
+  width: 100%;
+  transition: all var(--ch-transition-normal);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  z-index: 50;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+}
+
+.scrolled {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(255, 255, 255, 0.72);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+}
+
+:global([data-theme='dark']) .scrolled {
+  background: rgba(10, 10, 20, 0.7);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--ch-space-4) var(--ch-space-6);
+  height: 72px;
+}

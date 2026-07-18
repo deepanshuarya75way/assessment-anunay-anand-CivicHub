@@ -1,0 +1,14 @@
+/* Z-Index Scale */
+:root {
+  --ch-z-hide: -1;
+  --ch-z-base: 0;
+  --ch-z-dropdown: 1000;
+  --ch-z-sticky: 1100;
+  --ch-z-fixed: 1200;
+  --ch-z-modal-backdrop: 1300;
+  --ch-z-modal: 1301;
+  --ch-z-popover: 1400;
+  --ch-z-tooltip: 1500;
+  --ch-z-toast: 1600;
+  --ch-z-max: 9999;
+}

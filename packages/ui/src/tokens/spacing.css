@@ -1,0 +1,21 @@
+/* Spacing Tokens */
+:root {
+  --ch-space-0: 0;
+  --ch-space-1: 0.25rem;  /* 4px */
+  --ch-space-2: 0.5rem;   /* 8px */
+  --ch-space-3: 0.75rem;  /* 12px */
+  --ch-space-4: 1rem;     /* 16px */
+  --ch-space-5: 1.25rem;  /* 20px */
+  --ch-space-6: 1.5rem;   /* 24px */
+  --ch-space-8: 2rem;     /* 32px */
+  --ch-space-10: 2.5rem;  /* 40px */
+  --ch-space-12: 3rem;    /* 48px */
+  --ch-space-16: 4rem;    /* 64px */
+  --ch-space-20: 5rem;    /* 80px */
+  --ch-space-24: 6rem;    /* 96px */
+  
+  /* Layout specific */
+  --ch-container-padding: var(--ch-space-4);
+  --ch-section-gap: var(--ch-space-12);
+  --ch-touch-target: 44px; /* Minimum touch target for accessibility */
+}

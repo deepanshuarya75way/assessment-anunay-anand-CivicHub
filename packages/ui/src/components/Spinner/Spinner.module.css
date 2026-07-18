@@ -1,0 +1,30 @@
+.spinner {
+  animation: spin 1s linear infinite;
+  color: var(--ch-primary-base);
+}
+
+.size-sm {
+  width: 16px;
+  height: 16px;
+}
+
+.size-md {
+  width: 24px;
+  height: 24px;
+}
+
+.size-lg {
+  width: 32px;
+  height: 32px;
+}
+
+.size-xl {
+  width: 48px;
+  height: 48px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

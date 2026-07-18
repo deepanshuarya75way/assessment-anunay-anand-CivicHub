@@ -1,0 +1,10 @@
+/* Border Radius Tokens */
+:root {
+  --ch-radius-none: 0;
+  --ch-radius-sm: 0.375rem; /* 6px */
+  --ch-radius-md: 0.5rem;   /* 8px */
+  --ch-radius-lg: 1rem;     /* 16px */
+  --ch-radius-xl: 1.5rem;   /* 24px */
+  --ch-radius-2xl: 2rem;    /* 32px */
+  --ch-radius-full: 9999px; /* Pill / Circle */
+}

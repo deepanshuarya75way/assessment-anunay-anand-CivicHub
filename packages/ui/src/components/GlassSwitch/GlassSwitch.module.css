@@ -1,0 +1,45 @@
+.switch {
+  width: 44px;
+  height: 24px;
+  background-color: var(--ch-glass-1-bg);
+  border: 1px solid var(--ch-glass-2-border);
+  border-radius: 9999px;
+  position: relative;
+  box-shadow: var(--ch-shadow-inner);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+  transition: all var(--ch-transition-fast);
+  backdrop-filter: var(--ch-glass-1-blur);
+  -webkit-backdrop-filter: var(--ch-glass-1-blur);
+}
+
+.switch:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ch-focus-ring);
+}
+
+.switch[data-state='checked'] {
+  background-color: var(--ch-primary-base);
+  border-color: var(--ch-primary-base);
+}
+
+.switch[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.thumb {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 9999px;
+  box-shadow: var(--ch-shadow-sm);
+  transition: transform var(--ch-transition-fast);
+  transform: translateX(1px);
+  will-change: transform;
+}
+
+.switch[data-state='checked'] .thumb {
+  transform: translateX(21px);
+}

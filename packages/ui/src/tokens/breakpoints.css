@@ -1,0 +1,8 @@
+/* Breakpoints */
+:root {
+  --ch-bp-sm: 640px;
+  --ch-bp-md: 768px;
+  --ch-bp-lg: 1024px;
+  --ch-bp-xl: 1280px;
+  --ch-bp-2xl: 1536px;
+}

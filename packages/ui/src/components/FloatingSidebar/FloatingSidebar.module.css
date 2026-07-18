@@ -1,0 +1,21 @@
+.sidebar {
+  width: 280px;
+  height: calc(100vh - var(--ch-space-8) * 2);
+  position: sticky;
+  top: var(--ch-space-8);
+  margin: var(--ch-space-8);
+  border-radius: var(--ch-radius-xl);
+  display: flex;
+  flex-direction: column;
+}
+
+.inner {
+  padding: var(--ch-space-6);
+  height: 100%;
+  overflow-y: auto;
+  /* hide scrollbar for aesthetic */
+  scrollbar-width: none;
+}
+.inner::-webkit-scrollbar {
+  display: none;
+}

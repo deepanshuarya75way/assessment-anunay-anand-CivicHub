@@ -1,0 +1,32 @@
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Padding Variants */
+.padding-none {
+  padding: 0;
+}
+.padding-sm {
+  padding: var(--ch-space-3);
+}
+.padding-md {
+  padding: var(--ch-space-5);
+}
+.padding-lg {
+  padding: var(--ch-space-8);
+}
+
+/* Interactive Variant */
+.interactive {
+  transition: transform var(--ch-transition-fast), box-shadow var(--ch-transition-fast);
+}
+
+.interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--ch-shadow-lg);
+}
+
+.interactive:active {
+  transform: translateY(0);
+}

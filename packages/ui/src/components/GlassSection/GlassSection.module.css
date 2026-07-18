@@ -1,0 +1,7 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  padding: var(--ch-container-padding);
+  margin-bottom: var(--ch-section-gap);
+  border-radius: var(--ch-radius-xl);
+}

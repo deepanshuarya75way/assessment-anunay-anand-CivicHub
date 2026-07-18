@@ -1,0 +1,32 @@
+.root {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--ch-radius-full);
+  background-color: var(--ch-glass-2-bg);
+  height: 8px;
+  width: 100%;
+}
+
+.indicator {
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  background-color: var(--ch-primary-base);
+  transition: transform var(--ch-transition-normal);
+  border-radius: var(--ch-radius-full);
+}
+
+.indeterminate {
+  animation: indeterminate 1.5s infinite linear;
+  transform-origin: 0% 50%;
+  width: 50%;
+}
+
+@keyframes indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}

@@ -1,0 +1,38 @@
+.contentWrapper {
+  z-index: var(--ch-z-tooltip);
+  animation: tooltipFadeIn var(--ch-transition-fast);
+}
+
+.content {
+  padding: var(--ch-space-2) var(--ch-space-3);
+  font-family: var(--ch-font-sans);
+  font-size: var(--ch-text-xs);
+  color: var(--ch-text-primary);
+  border-radius: var(--ch-radius-md);
+  /* Force a bit darker/less blur for tooltip legibility */
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+[data-theme='light'] .content {
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--ch-text-primary);
+}
+
+[data-theme='high-contrast'] .content {
+  background: var(--ch-bg-dark);
+  border: 1px solid var(--ch-text-primary);
+  backdrop-filter: none;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
