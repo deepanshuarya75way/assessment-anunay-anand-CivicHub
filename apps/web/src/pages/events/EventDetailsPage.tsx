@@ -1,8 +1,19 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { useEvent, useRegisterForEvent, useCancelRegistration } from '../../features/events/api/events.api';
+import { useEvent, useRegisterForEvent } from '../../features/events/api/events.api';
 import EventTimeline from '../../features/events/components/EventTimeline';
 import { useAuthStore } from '../../stores/auth.store';
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+
+// Fix Leaflet's default icon path issues
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+});
 
 export default function EventDetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -11,7 +22,6 @@ export default function EventDetailsPage() {
   const [activeTab, setActiveTab] = useState<'about' | 'schedule' | 'announcements'>('about');
 
   const { mutate: register, isPending: isRegistering } = useRegisterForEvent();
-  const { mutate: cancelRegistration, isPending: isCanceling } = useCancelRegistration();
 
   if (isLoading) {
     return (
@@ -172,9 +182,24 @@ export default function EventDetailsPage() {
 
                 <div className="flex items-start">
                   <svg className="w-5 h-5 text-accent mr-3 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                  <div>
+                  <div className="w-full">
                     <div className="text-white font-medium">Location</div>
-                    <div className="text-slate-400 text-sm">{event.address || 'Location TBA'}</div>
+                    <div className="text-slate-400 text-sm mb-2">{event.address || 'Location TBA'}</div>
+                    {event.location?.coordinates?.length === 2 && (
+                      <div className="h-48 w-full rounded-xl overflow-hidden border border-white/10 relative z-0 mt-3">
+                        <MapContainer 
+                          center={[event.location.coordinates[1] as number, event.location.coordinates[0] as number]} 
+                          zoom={15} 
+                          style={{ height: '100%', width: '100%' }}
+                        >
+                          <TileLayer
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            attribution='&copy; OpenStreetMap contributors'
+                          />
+                          <Marker position={[event.location.coordinates[1] as number, event.location.coordinates[0] as number]} />
+                        </MapContainer>
+                      </div>
+                    )}
                   </div>
                 </div>
 

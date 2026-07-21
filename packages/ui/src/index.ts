@@ -48,6 +48,5 @@ export * from './components/Cards/AnalyticCard';
 export * from './components/AmbientMesh';
 export * from './components/AnimatedNumber';
 export * from './components/Layout';
-export * from './components/Layout';
 
 export * from './motion';

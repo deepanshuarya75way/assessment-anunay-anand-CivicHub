@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCreateIssue, useCategories } from '../../features/civic/api/civic.api';
 import MapView from '../../features/civic/components/MapView';
 import { GeoJSONPoint } from '@civichub/shared';
-import { GlassCard, GlassButton, GlassInput, GlassTextarea, GlassSelect, GlassSelectTrigger, GlassSelectValue, GlassSelectContent, GlassSelectItem, Progress, BreadcrumbRoot, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, Toast } from '@civichub/ui';
+import { GlassCard, GlassButton, GlassInput, GlassTextarea, Progress } from '@civichub/ui';
 import { MapPin, Info, CheckCircle2, ChevronRight, ChevronLeft } from 'lucide-react';
 
 export default function ReportIssuePage() {

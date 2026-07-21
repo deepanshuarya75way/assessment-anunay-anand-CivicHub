@@ -15,11 +15,15 @@ router.put('/profiles/:userId', volunteerController.updateProfile);
 router.get('/campaigns', volunteerController.getCampaigns);
 router.post('/campaigns', volunteerController.createCampaign);
 router.get('/campaigns/:id', volunteerController.getCampaign);
+router.put('/campaigns/:id', volunteerController.updateCampaign);
+router.patch('/campaigns/:id/status', volunteerController.updateCampaignStatus);
+router.delete('/campaigns/:id', volunteerController.deleteCampaign);
 
 // Tasks
 router.get('/campaigns/:id/tasks', volunteerController.getCampaignTasks);
 router.post('/campaigns/:id/tasks', volunteerController.createCampaignTask);
 router.post('/tasks/:taskId/assign', volunteerController.assignTask);
+router.delete('/tasks/:taskId', volunteerController.deleteTask);
 
 // Registrations
 router.get('/campaigns/:id/registrations', volunteerController.getCampaignRegistrations);

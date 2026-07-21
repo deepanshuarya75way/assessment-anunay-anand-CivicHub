@@ -29,7 +29,7 @@ export const errorHandler = (err: any, req: Request, res: Response, next: NextFu
   // Fallback for unknown errors
   return ApiResponse.error(
     res,
-    'Internal Server Error',
+    err.message || 'Internal Server Error',
     500,
     'INTERNAL_SERVER_ERROR',
     undefined,

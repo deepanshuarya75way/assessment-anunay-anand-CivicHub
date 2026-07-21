@@ -1,14 +1,7 @@
 import { useState } from 'react';
 import {
-  GlassCard, GlassPanel, GlassSection, GlassButton, IconButton, FloatingActionButton,
-  ButtonGroup, GlassInput, GlassSearchInput, GlassTextarea, GlassCheckbox, GlassSwitch,
-  GlassSelect, GlassSelectTrigger, GlassSelectContent, GlassSelectItem, GlassSelectValue,
-  GlassNavbar, FloatingSidebar, BreadcrumbRoot, BreadcrumbList, BreadcrumbItem,
-  BreadcrumbLink, BreadcrumbSeparator, Tabs, TabsList, TabsTrigger, TabsContent,
-  GlassDialog, GlassDialogTrigger, GlassDialogContent, GlassDialogHeader, GlassDialogTitle,
-  GlassDialogDescription, GlassDialogFooter, Popover, PopoverTrigger, PopoverContent,
-  Tooltip, TooltipTrigger, TooltipContent, TooltipProvider, Badge, Divider, Progress,
-  Spinner, Avatar, AvatarImage, AvatarFallback, CivicIcon, 
+  GlassButton, GlassNavbar, FloatingSidebar, Badge, Divider,
+  Spinner, Avatar, AvatarFallback, CivicIcon, 
   BentoGrid, BentoGridItem, MasonryGrid, MasonryItem, Skeleton, EmptyState,
   PostCard, EventCard, AnalyticCard, CommandPalette
 } from '@civichub/ui';
@@ -16,7 +9,6 @@ import { BarChart3, Users, Clock, AlertCircle } from 'lucide-react';
 
 export default function DesignPlayground() {
   const [activeTab, setActiveTab] = useState('typography');
-  const [progress, setProgress] = useState(60);
   const [cmdOpen, setCmdOpen] = useState(false);
 
   return (

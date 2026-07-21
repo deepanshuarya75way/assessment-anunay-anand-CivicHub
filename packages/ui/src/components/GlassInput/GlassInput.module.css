@@ -1,5 +1,5 @@
 .input {
-  display: flex;
+  display: block;
   height: 44px; /* Touch target size */
   width: 100%;
   border-radius: var(--ch-radius-md);

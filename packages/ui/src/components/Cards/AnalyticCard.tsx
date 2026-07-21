@@ -1,5 +1,4 @@
 import React from 'react';
-import { clsx } from 'clsx';
 import { cn } from '../Skeleton';
 import { motion } from 'framer-motion';
 import { AnimatedNumber } from '../AnimatedNumber';

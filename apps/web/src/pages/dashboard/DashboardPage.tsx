@@ -1,5 +1,4 @@
-import React from 'react';
-import { PageShell, SectionContainer, PageHeader, AnalyticCard, EventCard, PostCard } from '@civichub/ui';
+import { PageShell, SectionContainer, PageHeader, AnalyticCard, EventCard } from '@civichub/ui';
 import { useAuthStore } from '../../stores/auth.store';
 import { motion } from 'framer-motion';
 import { Sun, CheckCircle2, TrendingUp, AlertCircle } from 'lucide-react';

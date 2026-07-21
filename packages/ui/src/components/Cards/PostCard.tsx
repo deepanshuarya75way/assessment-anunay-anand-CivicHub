@@ -1,5 +1,3 @@
-import React from 'react';
-import { clsx } from 'clsx';
 import { MessageSquare, Heart, Share2 } from 'lucide-react';
 import { cn } from '../Skeleton';
 import { motion } from 'framer-motion';

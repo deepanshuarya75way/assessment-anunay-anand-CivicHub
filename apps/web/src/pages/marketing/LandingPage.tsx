@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { 
   PostCard, 
-  CivicIcon,
   PageShell,
   SectionContainer
 } from '@civichub/ui';

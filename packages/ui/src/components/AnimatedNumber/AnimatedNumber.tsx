@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { motion, useSpring, useTransform } from 'framer-motion';
 
 interface AnimatedNumberProps {
@@ -8,8 +8,7 @@ interface AnimatedNumberProps {
 }
 
 export function AnimatedNumber({ value, duration = 2000, className }: AnimatedNumberProps) {
-  const [hasAnimated, setHasAnimated] = useState(false);
-  
+
   const spring = useSpring(0, { 
     bounce: 0,
     duration: duration 
@@ -19,7 +18,6 @@ export function AnimatedNumber({ value, duration = 2000, className }: AnimatedNu
 
   useEffect(() => {
     spring.set(value);
-    setHasAnimated(true);
   }, [value, spring]);
 
   return <motion.span className={className}>{display}</motion.span>;

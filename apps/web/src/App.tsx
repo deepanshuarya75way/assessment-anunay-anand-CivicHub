@@ -18,6 +18,7 @@ import VolunteerDashboardPage from './pages/volunteer/VolunteerDashboardPage';
 import VolunteerProfilePage from './pages/volunteer/VolunteerProfilePage';
 import CampaignDirectoryPage from './pages/campaigns/CampaignDirectoryPage';
 import CampaignDetailsPage from './pages/campaigns/CampaignDetailsPage';
+import CreateCampaignPage from './pages/campaigns/CreateCampaignPage';
 import EventDirectoryPage from './pages/events/EventDirectoryPage';
 import EventDetailsPage from './pages/events/EventDetailsPage';
 import EventCalendarPage from './pages/events/EventCalendarPage';
@@ -30,7 +31,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  GlassButton, 
   Avatar, 
   AvatarFallback, 
   CivicIcon, 
@@ -64,11 +64,16 @@ function GlobalLayout({ children }: { children: React.ReactNode }) {
     <div className="flex flex-col min-h-screen">
       {/* Floating Modern Navigation */}
       <div className="fixed top-0 left-0 right-0 z-[100] pt-4 px-4 pb-4 md:pt-6 md:pb-6 pointer-events-none flex justify-center w-full">
-        <header className="pointer-events-auto flex items-center justify-between w-full max-w-6xl mx-auto bg-black/40 backdrop-blur-xl border border-white/10 rounded-full px-4 py-2.5 shadow-2xl transition-all duration-300 hover:bg-black/60 hover:border-white/20">
+        <header className="relative pointer-events-auto flex items-center justify-between w-full max-w-6xl mx-auto bg-black/40 backdrop-blur-xl border border-white/10 rounded-full px-4 py-2.5 shadow-2xl transition-all duration-300 hover:bg-black/60 hover:border-white/20">
+          {/* Mobile Center Title */}
+          <div className="absolute left-1/2 -translate-x-1/2 md:hidden pointer-events-none">
+            <span className="font-bold text-lg bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">CivicHub</span>
+          </div>
+          
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
             <img src={logoUrl} alt="CivicHub Logo" className="h-8 w-8 rounded-full shadow-sm ring-2 ring-white/10 group-hover:ring-primary/50 transition-all duration-300" />
-            <span className="font-bold text-lg hidden sm:block bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent group-hover:from-primary group-hover:to-accent transition-all duration-300">CivicHub</span>
+            <span className="font-bold text-lg hidden md:block bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent group-hover:from-primary group-hover:to-accent transition-all duration-300">CivicHub</span>
           </Link>
           
           {/* Center Links (Desktop) */}
@@ -188,6 +193,7 @@ function App() {
               <Route path="/volunteer" element={<ProtectedRoute><VolunteerDashboardPage /></ProtectedRoute>} />
               <Route path="/volunteer/profile" element={<ProtectedRoute><VolunteerProfilePage /></ProtectedRoute>} />
               <Route path="/campaigns" element={<ProtectedRoute><CampaignDirectoryPage /></ProtectedRoute>} />
+              <Route path="/campaigns/create" element={<ProtectedRoute><CreateCampaignPage /></ProtectedRoute>} />
               <Route path="/campaigns/:id" element={<ProtectedRoute><CampaignDetailsPage /></ProtectedRoute>} />
               
               <Route path="/events" element={<ProtectedRoute><EventDirectoryPage /></ProtectedRoute>} />

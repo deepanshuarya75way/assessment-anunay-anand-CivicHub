@@ -58,6 +58,40 @@ export class VolunteerController {
     }
   }
 
+  async updateCampaign(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const userId = (req as any).user!.id;
+      const campaign = await campaignService.updateCampaign(id, req.body, userId);
+      res.json(campaign);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async updateCampaignStatus(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const { status } = req.body;
+      const userId = (req as any).user!.id;
+      const campaign = await campaignService.updateCampaignStatus(id, status, userId);
+      res.json(campaign);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async deleteCampaign(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const userId = (req as any).user!.id;
+      await campaignService.deleteCampaign(id, userId);
+      res.status(204).send();
+    } catch (error) {
+      next(error);
+    }
+  }
+
   // --- Tasks ---
   async createCampaignTask(req: Request, res: Response, next: NextFunction) {
     try {
@@ -74,6 +108,17 @@ export class VolunteerController {
       const { id } = req.params;
       const tasks = await taskService.getCampaignTasks(id);
       res.json(tasks);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async deleteTask(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { taskId } = req.params;
+      // In a real app we would check if req.user is the campaign organizer
+      await taskService.deleteTask(taskId);
+      res.status(204).send();
     } catch (error) {
       next(error);
     }

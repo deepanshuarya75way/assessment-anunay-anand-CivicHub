@@ -1,10 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useEvents } from '../../features/events/api/events.api';
 import EventCard from '../../features/events/components/EventCard';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { Link } from 'react-router-dom';
+import { PageShell } from '@civichub/ui';
+
+function MapUpdater({ events }: { events: any[] }) {
+  const map = useMap();
+  useEffect(() => {
+    if (events && events.length > 0) {
+      const bounds = L.latLngBounds(events.map(e => [e.location.coordinates[1], e.location.coordinates[0]]));
+      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 14 });
+    }
+  }, [events, map]);
+  return null;
+}
 
 // Fix Leaflet's default icon path issues with Webpack/Vite
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -31,8 +43,8 @@ export default function EventDirectoryPage() {
   });
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-4 py-8">
+    <PageShell>
+      <div className="max-w-7xl mx-auto px-4 py-8 w-full">
         
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
@@ -107,24 +119,24 @@ export default function EventDirectoryPage() {
         ) : (
           <div className="h-[600px] rounded-3xl overflow-hidden border border-white/10 relative z-0">
             <MapContainer 
-              center={[37.7749, -122.4194]} // Default center (San Francisco)
+              center={[37.7749, -122.4194]} // Fallback center
               zoom={13} 
               style={{ height: '100%', width: '100%' }}
-              className="z-0"
             >
               <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; OpenStreetMap contributors'
               />
-              {filteredEvents?.map(event => event.location && (
+              <MapUpdater events={filteredEvents?.filter(e => e.location?.coordinates?.length === 2) || []} />
+              {filteredEvents?.filter(e => e.location?.coordinates?.length === 2).map(event => (
                 <Marker 
                   key={event.id} 
-                  position={[event.location.coordinates[1], event.location.coordinates[0]]}
+                  position={[event.location!.coordinates[1], event.location!.coordinates[0]]}
                 >
                   <Popup className="rounded-xl overflow-hidden custom-popup">
                     <div className="p-1">
                       <h4 className="font-bold text-gray-900 mb-1">{event.title}</h4>
-                      <p className="text-sm text-gray-600 mb-2">{new Date(event.startTime).toLocaleDateString()}</p>
+                      <p className="text-sm text-gray-600 mb-2">{event.startTime ? new Date(event.startTime).toLocaleDateString() : 'TBD'}</p>
                       <Link 
                         to={`/events/${event.id}`}
                         className="text-accent text-sm font-medium hover:underline"
@@ -147,6 +159,6 @@ export default function EventDirectoryPage() {
         )}
         
       </div>
-    </div>
+    </PageShell>
   );
 }

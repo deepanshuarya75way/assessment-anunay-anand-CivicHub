@@ -1,5 +1,3 @@
-import React from 'react';
-import { clsx } from 'clsx';
 import { Calendar, MapPin, Users } from 'lucide-react';
 import { cn } from '../Skeleton';
 import { motion } from 'framer-motion';

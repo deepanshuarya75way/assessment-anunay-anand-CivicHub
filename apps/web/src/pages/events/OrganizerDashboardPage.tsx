@@ -27,7 +27,7 @@ export default function OrganizerDashboardPage() {
   const [scanResult, setScanResult] = useState<string | null>(null);
 
   const { mutate: updateStatus, isPending: isUpdatingStatus } = useUpdateEventStatus();
-  const { mutate: processCheckIn, isPending: isCheckingIn } = useProcessCheckIn();
+  const { mutate: processCheckIn } = useProcessCheckIn();
 
   if (isLoading) {
     return (

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Command } from 'cmdk';
 import { Search } from 'lucide-react';
-import { cn } from '../Skeleton';
 import { Dialog, DialogContent } from '@radix-ui/react-dialog';
 
 export const CommandPalette = ({

@@ -61,6 +61,11 @@ export class TaskService {
   async getCampaignTasks(campaignId: string): Promise<ITaskDocument[]> {
     return TaskModel.find({ campaignId }).sort({ priority: 1, createdAt: -1 });
   }
+
+  async deleteTask(taskId: string): Promise<void> {
+    const task = await TaskModel.findByIdAndDelete(taskId);
+    if (!task) throw new NotFoundError('Task not found');
+  }
 }
 
 export const taskService = new TaskService();

@@ -25,6 +25,13 @@
   pointer-events: none;
 }
 
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: inherit;
+}
+
 /* Base Glass Styles - applied to all variants to keep the feel consistent */
 .button::before {
   content: '';

@@ -3,6 +3,7 @@ import { Campaign, SpaceReference } from '@civichub/shared';
 
 export interface ICampaignDocument extends Omit<Campaign, 'id' | 'createdAt' | 'updatedAt'>, Document {
   id: string;
+  organizerName?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -20,8 +21,9 @@ const CampaignSchema = new Schema<ICampaignDocument>(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
+    bannerUrl: { type: String, required: false },
     objectives: { type: [String], default: [] },
-    organizerId: { type: String, required: true },
+    organizerId: { type: String, required: true, ref: 'User' },
     space: { type: SpaceReferenceSchema, required: true },
     relatedIssues: { type: [String], default: [] },
     startDate: { type: Date, required: true },

@@ -1,13 +1,14 @@
 import { useEvents } from '../../features/events/api/events.api';
 import EventCalendar from '../../features/events/components/EventCalendar';
 import { Link } from 'react-router-dom';
+import { PageShell } from '@civichub/ui';
 
 export default function EventCalendarPage() {
   const { data: events, isLoading } = useEvents();
 
   return (
-    <div className="min-h-screen bg-background pb-20">
-      <div className="max-w-7xl mx-auto px-4 py-8">
+    <PageShell>
+      <div className="max-w-7xl mx-auto px-4 py-8 w-full">
         
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
           <div>
@@ -32,6 +33,6 @@ export default function EventCalendarPage() {
         )}
         
       </div>
-    </div>
+    </PageShell>
   );
 }

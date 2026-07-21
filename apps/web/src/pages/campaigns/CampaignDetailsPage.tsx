@@ -1,19 +1,79 @@
-import { useParams } from 'react-router-dom';
-import { useCampaign, useCampaignTasks, useJoinCampaign } from '../../features/volunteer/api';
+import { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useCampaign, useCampaignTasks, useJoinCampaign, useDeleteCampaign, useUpdateCampaignStatus, useDeleteTask, useAssignTask } from '../../features/volunteer/api';
+import { PageShell } from '@civichub/ui';
+import { AddTaskModal } from '../../features/volunteer/components/AddTaskModal';
+import { EditCampaignModal } from '../../features/volunteer/components/EditCampaignModal';
+import { useUiStore } from '../../stores/ui.store';
+import { useAuthStore } from '../../stores/auth.store';
+import { Share2, Trash2, Edit } from 'lucide-react';
 
 export default function CampaignDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const { data: campaign, isLoading: loadingCampaign } = useCampaign(id!);
   const { data: tasks, isLoading: loadingTasks } = useCampaignTasks(id!);
+  const navigate = useNavigate();
   const joinMutation = useJoinCampaign(id!);
+  const deleteCampaignMutation = useDeleteCampaign();
+  const updateStatusMutation = useUpdateCampaignStatus(id!);
+  const deleteTaskMutation = useDeleteTask(id!);
+  const assignTaskMutation = useAssignTask(id!);
+  
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const showToast = useUiStore(s => s.showToast);
+  const user = useAuthStore(s => s.user);
+
+  const isOrganizer = user?.id === campaign?.organizerId;
+
+  const shareCampaign = () => {
+    const url = window.location.href;
+    if (navigator.share) {
+      navigator.share({
+        title: campaign?.title,
+        url: url
+      }).catch(console.error);
+    } else {
+      navigator.clipboard.writeText(url);
+      showToast({
+        title: 'Link Copied',
+        description: 'Campaign link copied to clipboard.',
+        variant: 'success'
+      });
+    }
+  };
 
   if (loadingCampaign || loadingTasks) return <div className="p-8">Loading...</div>;
   if (!campaign) return <div className="p-8">Campaign not found</div>;
 
+  const handleDeleteCampaign = async () => {
+    if (confirm('Are you sure you want to delete this campaign? This action cannot be undone.')) {
+      await deleteCampaignMutation.mutateAsync(id!);
+      navigate('/volunteer');
+      showToast({ title: 'Campaign Deleted', variant: 'success' });
+    }
+  };
+
+  const handlePublish = async () => {
+    await updateStatusMutation.mutateAsync('PUBLISHED');
+    showToast({ title: 'Campaign Published', description: 'Your campaign is now public.', variant: 'success' });
+  };
+
   return (
-    <div className="max-w-7xl mx-auto p-8 space-y-8">
-      <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8">
-        <div className="flex justify-between items-start mb-6">
+    <PageShell>
+      {campaign.bannerUrl && (
+        <div className="w-full h-64 md:h-96 relative">
+          <img 
+            src={campaign.bannerUrl} 
+            alt={campaign.title} 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C10] to-transparent" />
+        </div>
+      )}
+      <div className={`max-w-7xl mx-auto p-8 space-y-8 ${campaign.bannerUrl ? '-mt-32 relative z-10' : ''}`}>
+      <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 shadow-2xl">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-6">
           <div>
             <h1 className="text-4xl font-bold mb-2">{campaign.title}</h1>
             <span className={`px-3 py-1 text-sm rounded-full ${
@@ -23,13 +83,53 @@ export default function CampaignDetailsPage() {
               {campaign.status}
             </span>
           </div>
-          <button
-            onClick={() => joinMutation.mutate()}
-            disabled={joinMutation.isPending}
-            className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:opacity-50 font-semibold"
-          >
-            {joinMutation.isPending ? 'Joining...' : 'Join Campaign'}
-          </button>
+          <div className="flex flex-wrap gap-3">
+            {isOrganizer && (
+              <>
+                <button
+                  onClick={() => setIsEditModalOpen(true)}
+                  className="px-4 py-3 bg-white/5 border border-white/10 text-white rounded-xl hover:bg-white/10 font-semibold flex items-center gap-2"
+                >
+                  <Edit className="w-4 h-4" /> Edit
+                </button>
+                <button
+                  onClick={handleDeleteCampaign}
+                  disabled={deleteCampaignMutation.isPending}
+                  className="px-4 py-3 bg-red-500/20 text-red-400 border border-red-500/20 rounded-xl hover:bg-red-500/30 font-semibold flex items-center gap-2"
+                >
+                  <Trash2 className="w-4 h-4" /> Delete
+                </button>
+                {campaign.status === 'DRAFT' && (
+                  <button
+                    onClick={handlePublish}
+                    disabled={updateStatusMutation.isPending}
+                    className="px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 font-semibold"
+                  >
+                    {updateStatusMutation.isPending ? 'Publishing...' : 'Publish'}
+                  </button>
+                )}
+              </>
+            )}
+            
+            {(!isOrganizer && campaign.status === 'PUBLISHED') && (
+              <button
+                onClick={shareCampaign}
+                className="px-4 py-3 bg-white/5 border border-white/10 text-white rounded-xl hover:bg-white/10 font-semibold flex items-center gap-2"
+              >
+                <Share2 className="w-4 h-4" /> Share
+              </button>
+            )}
+
+            {(!isOrganizer && campaign.status === 'PUBLISHED') && (
+              <button
+                onClick={() => joinMutation.mutate()}
+                disabled={joinMutation.isPending}
+                className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:opacity-50 font-semibold"
+              >
+                {joinMutation.isPending ? 'Joining...' : 'Join Campaign'}
+              </button>
+            )}
+          </div>
         </div>
 
         <div className="prose prose-invert max-w-none mb-8">
@@ -51,7 +151,7 @@ export default function CampaignDetailsPage() {
           </div>
           <div>
             <h3 className="text-sm text-gray-400 mb-1">Organizer</h3>
-            <p className="font-semibold">{campaign.organizerId}</p>
+            <p className="font-semibold">{campaign.organizerName || campaign.organizerId}</p>
           </div>
         </div>
 
@@ -70,10 +170,14 @@ export default function CampaignDetailsPage() {
       <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Tasks</h2>
-          {/* For organizer only in real app */}
-          <button className="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 text-sm">
-            Add Task
-          </button>
+          {isOrganizer && (
+            <button 
+              onClick={() => setIsTaskModalOpen(true)}
+              className="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 text-sm"
+            >
+              Add Task
+            </button>
+          )}
         </div>
 
         <div className="space-y-4">
@@ -93,9 +197,24 @@ export default function CampaignDetailsPage() {
                   </span>
                 </div>
               </div>
-              <button className="px-4 py-2 bg-blue-600/20 text-blue-400 rounded-lg hover:bg-blue-600/40 text-sm font-medium">
-                Claim Task
-              </button>
+              <div className="flex items-center gap-3">
+                {isOrganizer ? (
+                  <button 
+                    onClick={() => deleteTaskMutation.mutate(task.id)}
+                    className="p-2 text-gray-400 hover:text-red-400 rounded-lg hover:bg-red-500/10 transition-colors"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
+                ) : (
+                  <button 
+                    onClick={() => assignTaskMutation.mutate(task.id)}
+                    disabled={assignTaskMutation.isPending || task.assignees.includes(user?.id || '')}
+                    className="px-4 py-2 bg-blue-600/20 text-blue-400 rounded-lg hover:bg-blue-600/40 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {task.assignees.includes(user?.id || '') ? 'Claimed' : 'Claim Task'}
+                  </button>
+                )}
+              </div>
             </div>
           ))}
           {(!tasks || tasks.length === 0) && (
@@ -104,5 +223,16 @@ export default function CampaignDetailsPage() {
         </div>
       </div>
     </div>
+    <AddTaskModal 
+      campaignId={id!} 
+      open={isTaskModalOpen} 
+      onOpenChange={setIsTaskModalOpen} 
+    />
+    <EditCampaignModal
+      campaign={campaign}
+      open={isEditModalOpen}
+      onOpenChange={setIsEditModalOpen}
+    />
+    </PageShell>
   );
 }

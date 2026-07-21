@@ -71,12 +71,12 @@ const IssueSchema = new Schema<IIssueDocument>(
       default: 'global'
     },
     contextId: { type: String },
-    priority: { type: String, enum: ['LOW', 'MEDIUM', 'HIGH', 'URGENT'], default: 'MEDIUM' },
+
   },
   { 
     timestamps: true,
-    toJSON: { virtuals: true, transform: (doc, ret) => { ret.id = ret._id; delete ret._id; delete ret.__v; return ret; } },
-    toObject: { virtuals: true, transform: (doc, ret) => { ret.id = ret._id; delete ret._id; delete ret.__v; return ret; } }
+    toJSON: { virtuals: true, transform: (doc, ret: any) => { ret.id = ret._id; delete ret._id; delete ret.__v; return ret; } },
+    toObject: { virtuals: true, transform: (doc, ret: any) => { ret.id = ret._id; delete ret._id; delete ret.__v; return ret; } }
   }
 );
 

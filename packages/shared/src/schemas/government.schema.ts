@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { UserRole } from './identity.schema';
 
 export const TenantSchema = z.object({
   id: z.string(),

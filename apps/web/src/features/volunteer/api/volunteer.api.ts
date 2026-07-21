@@ -31,15 +31,38 @@ const createCampaign = async (payload: Partial<Campaign>): Promise<Campaign> => 
   return data;
 };
 
+const updateCampaign = async (id: string, payload: Partial<Campaign>): Promise<Campaign> => {
+  const { data } = await api.put(`/volunteer/campaigns/${id}`, payload);
+  return data;
+};
+
+const updateCampaignStatus = async (id: string, status: string): Promise<Campaign> => {
+  const { data } = await api.patch(`/volunteer/campaigns/${id}/status`, { status });
+  return data;
+};
+
+const deleteCampaign = async (id: string): Promise<void> => {
+  await api.delete(`/volunteer/campaigns/${id}`);
+};
+
 // Tasks
 const getCampaignTasks = async (campaignId: string): Promise<Task[]> => {
   const { data } = await api.get(`/volunteer/campaigns/${campaignId}/tasks`);
   return data;
 };
 
+const createCampaignTask = async (campaignId: string, payload: Partial<Task>): Promise<Task> => {
+  const { data } = await api.post(`/volunteer/campaigns/${campaignId}/tasks`, payload);
+  return data;
+};
+
 const assignTask = async (taskId: string): Promise<Task> => {
   const { data } = await api.post(`/volunteer/tasks/${taskId}/assign`);
   return data;
+};
+
+const deleteTask = async (taskId: string): Promise<void> => {
+  await api.delete(`/volunteer/tasks/${taskId}`);
 };
 
 // Registrations
@@ -100,6 +123,38 @@ export const useCreateCampaign = () => {
   });
 };
 
+export const useUpdateCampaign = (campaignId: string) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: Partial<Campaign>) => updateCampaign(campaignId, payload),
+    onSuccess: (data) => {
+      queryClient.setQueryData(['volunteerCampaign', campaignId], data);
+      queryClient.invalidateQueries({ queryKey: ['volunteerCampaigns'] });
+    },
+  });
+};
+
+export const useUpdateCampaignStatus = (campaignId: string) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (status: string) => updateCampaignStatus(campaignId, status),
+    onSuccess: (data) => {
+      queryClient.setQueryData(['volunteerCampaign', campaignId], data);
+      queryClient.invalidateQueries({ queryKey: ['volunteerCampaigns'] });
+    },
+  });
+};
+
+export const useDeleteCampaign = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteCampaign,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['volunteerCampaigns'] });
+    },
+  });
+};
+
 // Tasks
 export const useCampaignTasks = (campaignId: string) => {
   return useQuery({
@@ -109,10 +164,30 @@ export const useCampaignTasks = (campaignId: string) => {
   });
 };
 
+export const useCreateCampaignTask = (campaignId: string) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: Partial<Task>) => createCampaignTask(campaignId, payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['campaignTasks', campaignId] });
+    },
+  });
+};
+
 export const useAssignTask = (campaignId: string) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: assignTask,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['campaignTasks', campaignId] });
+    },
+  });
+};
+
+export const useDeleteTask = (campaignId: string) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteTask,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['campaignTasks', campaignId] });
     },

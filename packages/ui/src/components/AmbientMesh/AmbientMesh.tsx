@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './AmbientMesh.module.css';
 import { clsx } from 'clsx';
 

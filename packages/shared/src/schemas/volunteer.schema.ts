@@ -38,8 +38,10 @@ export const CampaignSchema = z.object({
   id: z.string(),
   title: z.string().min(5),
   description: z.string().min(10),
+  bannerUrl: z.string().url().optional().or(z.literal('')),
   objectives: z.array(z.string()).default([]),
   organizerId: z.string(), // userId of the organizer
+  organizerName: z.string().optional(),
   space: SpaceReferenceSchema,
   relatedIssues: z.array(z.string()).default([]), // Array of issue IDs
   startDate: z.date(),

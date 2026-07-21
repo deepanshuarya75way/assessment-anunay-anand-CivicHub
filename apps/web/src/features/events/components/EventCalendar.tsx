@@ -65,28 +65,40 @@ export default function EventCalendar({ events }: EventCalendarProps) {
           return (
             <div 
               key={day} 
-              className={`aspect-square rounded-2xl border transition-all duration-300 p-2 overflow-hidden ${
+              className={`aspect-square rounded-2xl border transition-all duration-300 p-3 overflow-hidden flex flex-col ${
                 isToday 
-                  ? 'border-accent bg-accent/10 shadow-[0_0_15px_rgba(var(--accent-rgb),0.3)]' 
-                  : 'border-white/5 bg-white/5 hover:border-white/20'
+                  ? 'border-primary/30 bg-primary/5 relative' 
+                  : 'border-white/5 bg-white/5 hover:border-white/20 hover:bg-white/10'
               }`}
             >
-              <div className={`text-sm font-medium mb-1 ${isToday ? 'text-accent' : 'text-slate-300'}`}>
-                {day}
+              {isToday && (
+                <div className="absolute top-0 right-0 w-16 h-16 bg-primary/20 blur-2xl rounded-full -mr-8 -mt-8 pointer-events-none" />
+              )}
+              
+              <div className="mb-3 relative z-10">
+                <span className={`inline-flex items-center justify-center w-8 h-8 text-sm font-semibold rounded-full ${
+                  isToday 
+                    ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20' 
+                    : 'text-slate-300'
+                }`}>
+                  {day}
+                </span>
               </div>
-              <div className="space-y-1">
+              
+              <div className="space-y-2 flex-1 overflow-y-auto relative z-10">
                 {dayEvents.slice(0, 3).map(event => (
                   <Link 
                     key={event.id}
                     to={`/events/${event.id}`}
-                    className="block text-[10px] bg-accent/20 text-accent px-2 py-1 rounded truncate hover:bg-accent hover:text-white transition-colors"
+                    className="flex items-center gap-2 text-[11px] sm:text-xs bg-background/50 hover:bg-primary/10 border border-white/5 hover:border-primary/20 text-slate-300 hover:text-primary-300 px-2.5 py-1.5 rounded-lg transition-all group"
                   >
-                    {event.title}
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary/60 group-hover:bg-primary group-hover:scale-125 transition-all shrink-0" />
+                    <span className="truncate font-medium">{event.title}</span>
                   </Link>
                 ))}
                 {dayEvents.length > 3 && (
-                  <div className="text-[10px] text-slate-400 px-1">
-                    +{dayEvents.length - 3} more
+                  <div className="text-[10px] text-slate-400 px-2 py-1.5 font-medium bg-white/5 rounded-lg text-center mt-1 border border-white/5 hover:bg-white/10 transition-colors cursor-pointer">
+                    +{dayEvents.length - 3} more events
                   </div>
                 )}
               </div>
