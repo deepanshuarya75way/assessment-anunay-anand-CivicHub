@@ -14,6 +14,8 @@ import { v1Routes } from './routes/v1';
 import { healthRoutes } from './domains/health/health.routes';
 import { governmentRoutes } from './domains/government/government.routes';
 
+import {Recomme}
+
 const app: express.Application = express();
 
 // Core middlewares
@@ -42,6 +44,9 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/v1', v1Routes);
 app.use('/api/v1/gov', governmentRoutes);
 app.use('/health', healthRoutes); // Use the new health routes at root level as well
+
+//Recommendations
+app.use('/api/events',recommendaionRoutes)
 
 // Error Handling
 app.use(errorHandler);

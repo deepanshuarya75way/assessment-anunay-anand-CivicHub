@@ -30,6 +30,25 @@ export default function EventDirectoryPage() {
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
   const [activeTab, setActiveTab] = useState<'upcoming' | 'live' | 'past'>('upcoming');
   const { data: events, isLoading } = useEvents();
+  const [recommendation,setRecommendation] = useState([]);
+
+  const recommendationList = [
+    {
+      eventName : "Blood Donation",
+      location : "Nehru Chauk, New Delhi",
+      timing : new Date("22-10-26")
+    },
+    {
+      eventName : "Polluted River Yamuna",
+      location : "Yamuna Ghat , New Delhi",
+      timing : new Date("10-10-26")
+    },
+    {
+      eventName : "Protest for AQI ",
+      location : "Jantar Manatr, New Delhi",
+      timing : new Date("27-9-26")
+    },
+  ]
 
   const filteredEvents = events?.filter(event => {
     const now = new Date();
@@ -41,6 +60,18 @@ export default function EventDirectoryPage() {
     if (activeTab === 'past') return end < now;
     return true;
   });
+
+  useEffect(()=>{
+     const idx = Math.floor(Math.random()* recommendationList.length);
+     const newRecom = [
+      {
+        eventName : recommendationList[idx].eventName,
+        location : recommendationList[idx].location,
+        timing : recommendationList[idx].timing,
+      }
+    ]
+     setRecommendation((prev)=> [...prev,...newRecom ])
+  }[recommendation]);
 
   return (
     <PageShell>
@@ -99,6 +130,18 @@ export default function EventDirectoryPage() {
             </button>
           ))}
         </div>
+
+        {
+          recommendation.map(recom => (
+            <div className="flex gap-6 border-b border-white/10 mb-8 overflow-x-auto pb-1">
+              <ul>
+                <li>Event : {recom.eventName}</li>
+                <li>Location : {recom.location}</li>
+                <li>Starting at  : {recom.timing}</li>
+              </ul>}
+            </div>
+        }
+            }
 
         {/* Content */}
         {isLoading ? (

@@ -1,0 +1,11 @@
+Recommendation Events 
+  Show users some event they might like.
+
+
+Use Location
+ Check How close an event is to the user .
+
+
+use community
+
+new user
