@@ -16,6 +16,7 @@ export enum EventTopic {
   CIVIC_ISSUE_ASSIGNED = 'civic.issue.assigned',
   CIVIC_ISSUE_IN_PROGRESS = 'civic.issue.in_progress',
   CIVIC_ISSUE_RESOLVED = 'civic.issue.resolved',
+  CIVIC_ISSUE_REOPENED = 'civic.issue.reopened',
   CIVIC_ISSUE_CLOSED = 'civic.issue.closed',
   CIVIC_ISSUE_SUPPORTED = 'civic.issue.supported',
   CIVIC_ISSUE_DUPLICATE_MARKED = 'civic.issue.duplicate.marked',

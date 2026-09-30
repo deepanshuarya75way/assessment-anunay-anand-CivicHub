@@ -15,6 +15,7 @@ router.get('/issues/:id', civicController.getIssueById);
 
 // Issue Workflows & Interactions
 router.post('/issues/:id/transition', authenticate, civicController.transitionState);
+router.post('/issues/:id/reopen',authenticate,civicController.createIssue);
 router.post('/issues/:id/watch', authenticate, civicController.watchIssue);
 router.post('/issues/:id/unwatch', authenticate, civicController.unwatchIssue);
 router.post('/issues/:id/support', authenticate, civicController.supportIssue);

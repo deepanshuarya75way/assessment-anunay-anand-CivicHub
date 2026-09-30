@@ -8,7 +8,12 @@ import { CommentModel } from '../../community/comments/comment.model';
 import { Issue, IssueStatus, Attachment } from '@civichub/shared';
 import { EventBus } from '../../../core/events/event.bus';
 import { EventTopic } from '../../../core/events/event.types';
-import { NotFoundError, ValidationError } from '../../../core/exceptions';
+import { 
+  NotFoundError, 
+  ValidationError ,
+  AuthorizationError,
+  ConflictError
+} from '../../../core/exceptions';
 import { z } from 'zod';
 
 export class CivicService {
@@ -89,6 +94,48 @@ export class CivicService {
     });
 
     return issue;
+  }
+
+  async reopenIssues(issueId : string,userId: string):
+  Promise <IIssueDocument> {
+    const issue = await IssueModel.findById(issueId);
+
+    if(!issue){
+      throw new NotFoundError('Issue not found');
+    }
+
+    if(issue.reporterId !== userId){
+      throw new AuthorizationError ('Only the reporter can reopen this issue');
+    }
+
+    if(issue.currentStatus === 'closed'){
+      throw new ConflictError('Closed issues can not be reopened');
+    }
+
+    if(issue.currentStatus !== 'resolved'){
+      throw new ConflictError('Only resolved issues can be reopened');
+    }
+
+    issue.currentStatus = 'in_progress';
+
+    issue.workflowHistory.push({
+      status: 'in_progress',
+      changedBy: userId,
+      timestamp : new Date(),
+      note : "Issue reopened"
+
+    });
+
+    await issue.save();
+
+    await EventBus.publish(EventTopic.CIVIC_ISSUE_REOPENED,{
+      issueId : issue._id,
+      userId
+    });
+
+    return issue;
+
+
   }
 
   /**

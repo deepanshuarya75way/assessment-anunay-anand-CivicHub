@@ -72,6 +72,22 @@ export class CivicController {
     }
   }
 
+  async reopenIssue(
+    req : AuthRequest,
+    res : Response,
+    next : NextFunction
+  ){
+
+    try{
+      const issue = await civicService.reopenIssues(req.params.id,req.user.id);
+
+      res.json(issue);
+
+    }catch(error){
+      next(error);
+    }
+  }
+
   async removeSupport(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       await civicService.removeSupport(req.params.id, req.user!.id);
@@ -129,6 +145,8 @@ export class CivicController {
       next(error);
     }
   }
+
+
 }
 
 export const civicController = new CivicController();
